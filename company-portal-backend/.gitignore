@@ -11,8 +11,7 @@
 config.json
 
 # Ignore appsettings in the PL project
-AirJourney-Blog.PL/appsettings.json
-AirJourney-Blog.PL/appsettings.Development.json
+API/appsettings.json
 
 # NuGet artifacts
 *.nuget.cache
