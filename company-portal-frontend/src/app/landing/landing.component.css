@@ -1,0 +1,56 @@
+/* landing.component.css */
+
+/* Global Styles */
+#landing-wrapper {
+  overflow-x: hidden;
+}
+
+/* Navigation */
+.navbar {
+  padding: 1rem 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  font-weight: 500;
+  color: #6c757d !important;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  color: #5369f8 !important;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.3" fill="rgba(83,105,248,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.5;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.hero-actions .btn {
+  transition: all 0.3s ease;
+}

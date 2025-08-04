@@ -1,0 +1,122 @@
+<div id="registration-flow-wrapper" class="container-fluid px-0">
+  <div class="row min-vh-100 g-0">
+    
+    <div class="col-lg-6 d-flex align-items-center justify-content-center bg-light">
+      <div class="px-4 py-5 w-100" style="max-width: 600px;">
+        
+        <div class="text-center mb-5">
+          <h2 class="fw-bold text-primary">
+            <span *ngIf="currentStep === 1">Sign Up as a Company</span>
+            <span *ngIf="currentStep === 2">Verify Your Email</span>
+            <span *ngIf="currentStep === 3">Set Your Password</span>
+          </h2>
+          <p class="text-muted">
+            <span *ngIf="currentStep === 1">Join our platform and grow your business</span>
+            <span *ngIf="currentStep === 2">Enter the 6-digit code sent to {{email}}</span>
+            <span *ngIf="currentStep === 3">Create a secure password for your account</span>
+          </p>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="step" 
+               *ngFor="let step of steps; let i = index"
+               [class.completed]="step.completed"
+               [class.active]="currentStep === step.number">
+            <div class="step-circle">
+              <i class="bi bi-check-lg" *ngIf="step.completed"></i>
+              <span *ngIf="!step.completed">{{step.number}}</span>
+            </div>
+            <div class="step-label">{{step.label}}</div>
+          </div>
+        </div>
+
+        <div class="form-container">
+          <app-register 
+            *ngIf="currentStep === 1"
+            (stepComplete)="onStepComplete($event)">
+          </app-register>
+
+          <app-verify-otp 
+            *ngIf="currentStep === 2"
+            [email]="email"
+            (stepComplete)="onStepComplete($event)">
+          </app-verify-otp>
+
+          <app-set-password 
+            *ngIf="currentStep === 3"
+            [registrationData]="registrationData"
+            (registrationComplete)="onRegistrationComplete()">
+          </app-set-password>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4" *ngIf="currentStep > 1">
+          <!-- <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+            <i class="bi bi-arrow-left me-2"></i>Go Back
+          </button> -->
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center bg-primary-gradient">
+      <div class="p-5 text-white text-center">
+        
+        <div *ngIf="currentStep <= 2 && getCurrentBusinessImage()">
+          <h2 class="display-5 fw-bold mb-4">{{getCurrentBusinessImage()!.title}}</h2>
+          <p class="lead mb-5">{{getCurrentBusinessImage()!.subtitle}}</p>
+          
+          <div class="testimonial-card bg-white text-dark p-4 rounded-4 shadow" *ngIf="hasTestimonial()">
+            <div class="d-flex align-items-center mb-3">
+              <!-- <img [src]="getCurrentBusinessImage()!.testimonial!.avatar" 
+                   alt="User" class="rounded-circle me-3" width="60"> -->
+              <div>
+                <h5 class="mb-0">{{getCurrentBusinessImage()!.testimonial!.name}}</h5>
+                <p class="text-muted mb-0">{{getCurrentBusinessImage()!.testimonial!.role}}</p>
+              </div>
+            </div>
+            <p class="mb-0">
+              <i class="bi bi-quote fs-3 text-primary"></i>
+              {{getCurrentBusinessImage()!.testimonial!.quote}}
+            </p>
+          </div>
+        </div>
+
+        <div *ngIf="currentStep === 3 && getCurrentBusinessImage()">
+          <h2 class="display-5 fw-bold mb-4">{{getCurrentBusinessImage()!.title}}</h2>
+          <p class="lead mb-5">{{getCurrentBusinessImage()!.subtitle}}</p>
+          
+          <div class="security-tips bg-white text-dark p-4 rounded-4 shadow" *ngIf="getCurrentBusinessImage()!.securityTips">
+            <h5 class="fw-bold mb-3 text-primary">
+              <i class="bi bi-shield-lock me-2"></i> Password Tips
+            </h5>
+            <ul class="text-start ps-3 mb-0">
+              <li *ngFor="let tip of getCurrentBusinessImage()!.securityTips">{{tip}}</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- <div class="business-showcase mt-5">
+          <div class="row g-3">
+            <div class="col-4">
+              <div class="showcase-item">
+                <img src="assets/business-1.jpg" alt="Business 1" class="img-fluid rounded-3 shadow-sm">
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="showcase-item">
+                <img src="assets/business-2.jpg" alt="Business 2" class="img-fluid rounded-3 shadow-sm">
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="showcase-item">
+                <img src="assets/business-3.jpg" alt="Business 3" class="img-fluid rounded-3 shadow-sm">
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 opacity-75">Trusted by businesses across industries</p>
+        </div> -->
+
+      </div>
+    </div>
+  </div>
+</div>

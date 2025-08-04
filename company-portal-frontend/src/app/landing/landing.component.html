@@ -1,0 +1,140 @@
+<div id="landing-wrapper">
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+    <div class="container">
+
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+
+        
+        <div class="d-flex gap-2">
+          <!-- Conditional rendering based on login status -->
+          <ng-container *ngIf="!isLoggedIn; else loggedInView">
+            <a routerLink="/auth/login" class="btn btn-outline-primary">Sign In</a>
+            <a routerLink="/auth/register" class="btn btn-primary px-4">Get Started</a>
+          </ng-container>
+          
+          <ng-template #loggedInView>
+            <div class="dropdown">
+              <button class="btn btn-outline-primary dropdown-toggle" type="button" 
+                      id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle me-2"></i>Hello, {{username}}
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" routerLink="/dashboard">Dashboard</a></li>
+                <li><a class="dropdown-item" routerLink="/profile">My Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+              </ul>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section - Different content based on auth status -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center min-vh-100 py-5">
+        
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="hero-content">
+
+            @if (isLoggedIn) {
+              <h1 class="display-4 fw-bold text-dark mb-4">
+                Welcome back, <span class="text-primary">{{username}}</span>
+              </h1>
+              
+              <p class="lead text-muted mb-5">
+                Ready to continue growing your business? Check out your dashboard or explore new features.
+              </p>
+              
+              <div class="hero-actions mb-5">
+                <a routerLink="/dashboard" class="btn btn-primary btn-lg me-3 px-5">
+                  <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
+                </a>
+                <button class="btn btn-outline-secondary btn-lg" (click)="scrollToSection('features')">
+                  <i class="bi bi-star me-2"></i>Explore Features
+                </button>
+              </div>
+
+            }@else {
+              <h1 class="display-4 fw-bold text-dark mb-4">
+                Grow Your Business with 
+                <span class="text-primary">Smart Solutions</span>
+              </h1>
+              
+              <p class="lead text-muted mb-5">
+                Join thousands of companies using our platform to streamline operations, 
+                manage customers, and drive growth with powerful analytics and insights.
+              </p>
+              
+              <div class="hero-actions mb-5">
+                <a routerLink="/auth/register" class="btn btn-primary btn-lg me-3 px-5">
+                  <i class="bi bi-rocket-takeoff me-2"></i>Start Free Trial
+                </a>
+                <button class="btn btn-outline-secondary btn-lg" (click)="scrollToSection('features')">
+                  <i class="bi bi-play-circle me-2"></i>Learn More
+                </button>
+              </div>
+
+            }
+
+
+
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="hero-visual">
+            <div class="hero-image-container">
+              <img src="assets/hero-dashboard.png" alt="Dashboard Preview" class="img-fluid hero-image">
+              
+              <!-- Floating Cards -->
+              <div class="floating-card card-1">
+                <div class="d-flex align-items-center">
+                  <div class="icon-circle bg-success me-3">
+                    <i class="bi bi-arrow-up text-white"></i>
+                  </div>
+                  <div>
+                    <small class="text-muted">Revenue</small>
+                    <h6 class="mb-0 fw-bold">+24%</h6>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="floating-card card-2">
+                <div class="d-flex align-items-center">
+                  <div class="icon-circle bg-primary me-3">
+                    <i class="bi bi-people text-white"></i>
+                  </div>
+                  <div>
+                    <small class="text-muted">New Customers</small>
+                    <h6 class="mb-0 fw-bold">1,247</h6>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="floating-card card-3">
+                <div class="d-flex align-items-center">
+                  <div class="icon-circle bg-warning me-3">
+                    <i class="bi bi-graph-up text-white"></i>
+                  </div>
+                  <div>
+                    <small class="text-muted">Growth Rate</small>
+                    <h6 class="mb-0 fw-bold">+18.5%</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
