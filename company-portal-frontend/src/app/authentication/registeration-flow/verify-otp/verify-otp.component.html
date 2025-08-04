@@ -1,0 +1,40 @@
+<form [formGroup]="otpForm" (ngSubmit)="verifyOtp()" class="needs-validation" novalidate>
+  <!-- OTP Input -->
+  <div class="mb-4">
+    <label for="otp" class="form-label fw-semibold">
+      Verification Code <span class="text-danger">*</span>
+    </label>
+    <input type="text" 
+           class="form-control form-control-lg text-center" 
+           id="otp" 
+           formControlName="otp"
+           maxlength="6"
+           placeholder="••••••">
+    <div class="invalid-feedback d-block" 
+         *ngIf="otpForm.controls['otp'].touched && otpForm.controls['otp'].invalid">
+      <i class="fas fa-exclamation-circle me-1 text-danger"></i>
+      <span *ngIf="otpForm.controls['otp'].hasError('required')">OTP is required</span>
+      <span *ngIf="otpForm.controls['otp'].hasError('minlength') || otpForm.controls['otp'].hasError('maxlength')">
+        OTP must be 6 digits
+      </span>
+    </div>
+  </div>
+
+  <!-- Resend OTP -->
+  <div class="text-end mb-4">
+    <button type="button" class="btn btn-link p-0 text-decoration-none" (click)="resendOtp()">
+      <i class="fas fa-rotate-right me-1"></i> Resend Code
+    </button>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="d-grid mt-4">
+    <button type="submit" class="btn btn-primary btn-lg" [disabled]="otpForm.invalid || isLoading">
+      <span *ngIf="!isLoading">Verify & Continue</span>
+      <span *ngIf="isLoading">
+        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        Verifying...
+      </span>
+    </button>
+  </div>
+</form>

@@ -1,0 +1,107 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+  <div class="mb-4">
+    <label for="arabicName" class="form-label fw-semibold">
+
+      Company Arabic Name <span class="text-danger">*</span>
+    </label>
+    <input type="text" class="form-control form-control-lg" 
+           id="arabicName" formControlName="arabicName"
+           placeholder="Enter company name in Arabic">
+    <div class="invalid-feedback d-block" 
+         *ngIf="registerForm.controls['arabicName'].touched && registerForm.controls['arabicName'].invalid">
+      <i class="fas fa-exclamation-circle me-1 text-danger"></i>
+      <span *ngIf="registerForm.controls['arabicName'].hasError('required')">Arabic name is required</span>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <label for="englishName" class="form-label fw-semibold">
+      Company English Name <span class="text-danger">*</span>
+    </label>
+    <input type="text" class="form-control form-control-lg" 
+           id="englishName" formControlName="englishName"
+           placeholder="Enter company name in English">
+    <div class="invalid-feedback d-block" 
+         *ngIf="registerForm.controls['englishName'].touched && registerForm.controls['englishName'].invalid">
+      <i class="fas fa-exclamation-circle me-1 text-danger"></i>
+      <span *ngIf="registerForm.controls['englishName'].hasError('required')">English name is required</span>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <label for="email" class="form-label fw-semibold">
+      Email Address <span class="text-danger">*</span>
+    </label>
+    <input type="email" class="form-control form-control-lg" 
+           id="email" formControlName="email"
+           placeholder="your@company.com">
+    <div class="invalid-feedback d-block" 
+         *ngIf="registerForm.controls['email'].touched && registerForm.controls['email'].invalid">
+      <i class="fas fa-exclamation-circle me-1 text-danger"></i>
+      <span *ngIf="registerForm.controls['email'].hasError('required')">Email is required</span>
+      <span *ngIf="registerForm.controls['email'].hasError('email')">Please enter a valid email</span>
+    </div>
+  </div>
+
+
+  <div class="mb-4">
+    <label for="phoneNumber" class="form-label fw-semibold">Phone Number</label>
+    <input type="tel" class="form-control form-control-lg"
+          id="phoneNumber" formControlName="phoneNumber"
+          placeholder="+966 123 456 789">
+    <div class="invalid-feedback d-block"
+        *ngIf="registerForm.controls['phoneNumber'].touched && registerForm.controls['phoneNumber'].invalid">
+      <i class="fas fa-exclamation-circle me-1 text-danger"></i>
+      <span *ngIf="registerForm.controls['phoneNumber'].hasError('required')">Phone number is required</span>
+      <span *ngIf="registerForm.controls['phoneNumber'].hasError('pattern')">Please enter a valid phone number</span>
+    </div>
+  </div>
+
+
+
+  <div class="mb-4">
+    <label for="websiteUrl" class="form-label fw-semibold">Website URL</label>
+    <input type="url" class="form-control form-control-lg"
+          id="websiteUrl" formControlName="websiteUrl"
+          placeholder="https://yourcompany.com">
+    <div class="invalid-feedback d-block"
+        *ngIf="registerForm.controls['websiteUrl'].touched && registerForm.controls['websiteUrl'].invalid">
+      <i class="fas fa-exclamation-circle me-1 text-danger"></i>
+      <span *ngIf="registerForm.controls['websiteUrl'].hasError('pattern')">Please enter a valid website URL</span>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <label class="form-label fw-semibold">Company Logo</label>
+    <div class="logo-upload-container border rounded-3 p-4 text-center position-relative">
+      <div *ngIf="!logoPreview" class="logo-placeholder">
+        <i class="fas fa-cloud-upload-alt display-4 text-muted"></i>
+        <p class="mt-2 mb-1">Drag & drop your logo here</p>
+        <p class="text-muted small">or click to browse</p>
+      </div>
+      <div *ngIf="logoPreview" class="logo-preview">
+        <img [src]="logoPreview" alt="Logo Preview" class="img-fluid rounded" style="max-height: 120px;">
+        <button type="button" class="btn btn-sm btn-outline-danger mt-2" (click)="removeLogo($event)">
+        <i class="fas fa-trash-alt"></i> Remove
+        </button>
+      </div>
+      <input type="file" class="d-none" id="logo" (change)="onFileChange($event)" accept="image/*">
+      <label for="logo" class="stretched-label" style="z-index: 1;"></label>
+    </div>
+    <div class="form-text">Recommended size: 300x300px (JPG, PNG)</div>
+  </div>
+
+
+
+
+  <!-- Submit Button -->
+  <div class="d-grid mt-4">
+    <button type="submit" class="btn btn-primary btn-lg" [disabled]="registerForm.invalid || isLoading">
+      <span *ngIf="!isLoading">Continue to Verification</span>
+      <span *ngIf="isLoading">
+        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        Processing...
+      </span>
+    </button>
+  </div>
+</form>
